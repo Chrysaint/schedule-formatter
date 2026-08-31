@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Расписание</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="crop-mark tl" aria-hidden="true"></div>
+    <div class="crop-mark tr" aria-hidden="true"></div>
+    <div class="crop-mark bl" aria-hidden="true"></div>
+    <div class="crop-mark br" aria-hidden="true"></div>
+
+    <header class="top">
+      <div class="brand">
+        <span class="brand-eyebrow">лист 01 · расписание занятий</span>
+        <h1>Расписание</h1>
+      </div>
+    </header>
+
+    <section id="settingsPanel" class="panel settings hidden">
+      <div class="panel-label">Настройки</div>
+      <label>
+        Адрес сервера-парсера (backend URL)
+        <input
+          id="apiUrlInput"
+          type="text"
+          placeholder="https://ваш-бэкенд.example.com"
+        />
+      </label>
+      <label>
+        Дата начала семестра
+        <span class="hint-inline">— 1-я неделя всегда нечётная</span>
+        <input id="semesterStartInput" type="date" />
+      </label>
+      <button id="saveSettingsBtn">Сохранить</button>
+    </section>
+
+    <main>
+      <section id="uploadSection" class="panel">
+        <div class="panel-label">Загрузка PDF</div>
+        <p class="hint">
+          Загрузи PDF-файл расписания с сайта МГСУ — сайт разберёт его и покажет
+          только твою группу и текущую неделю.
+        </p>
+
+        <label id="dropZone" class="dropzone" for="fileInput">
+          <span class="dz-corner c1"></span><span class="dz-corner c2"></span>
+          <span class="dz-corner c3"></span><span class="dz-corner c4"></span>
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M12 3v12M12 3 7 8M12 3l5 5" />
+            <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+          </svg>
+          <span id="dzText" class="dz-text"
+            >перетащи PDF сюда или нажми, чтобы выбрать файл</span
+          >
+          <input id="fileInput" type="file" accept="application/pdf" hidden />
+        </label>
+
+        <button id="parseBtn" class="primary-btn">Разобрать расписание</button>
+        <p id="status" class="status"></p>
+      </section>
+
+      <section id="resultSection" class="hidden">
+        <div class="titleblock panel">
+          <div class="tb-cell">
+            <span class="tb-label">Группа</span>
+            <span id="tbGroup" class="tb-value">—</span>
+          </div>
+          <div class="tb-cell">
+            <span class="tb-label">Неделя</span>
+            <span id="tbWeek" class="tb-value">—</span>
+          </div>
+          <div class="tb-cell">
+            <span class="tb-label">Файл</span>
+            <span id="tbFile" class="tb-value">—</span>
+          </div>
+        </div>
+
+        <div class="controls panel">
+          <div id="groupTabs" class="tabs"></div>
+          <button id="weekToggleBtn" class="link-btn">
+            переключить неделю вручную
+          </button>
+        </div>
+
+        <div id="agenda"></div>
+
+        <div class="export-row">
+          <button id="exportBtn" class="primary-btn">Скачать PDF</button>
+          <button id="exportIcsBtn" class="primary-btn">
+            Экспорт в календарь (.ics)
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
