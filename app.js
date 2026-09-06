@@ -101,7 +101,7 @@ parseBtn.addEventListener("click", async () => {
   try {
     const form = new FormData();
     form.append("file", file);
-    const resp = await fetch(`${settings.apiUrl}/api/parse`, {
+    const resp = await fetch(`${settings.apiUrl}/apiv2/parse`, {
       method: "POST",
       body: form,
     });
@@ -248,7 +248,7 @@ exportBtn.addEventListener("click", async () => {
   exportBtn.disabled = true;
   exportBtn.textContent = "Готовлю PDF…";
   try {
-    const resp = await fetch(`${settings.apiUrl}/api/export`, {
+    const resp = await fetch(`${settings.apiUrl}/apiv2/export`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
